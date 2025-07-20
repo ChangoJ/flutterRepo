@@ -28,6 +28,12 @@ class HomePage extends StatelessWidget {
               },
               child: const Text('Listar Productos'),
             ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.productForm);
+              },
+              child: const Text('Productos form'),
+            ),
           ],
         ),
       ),

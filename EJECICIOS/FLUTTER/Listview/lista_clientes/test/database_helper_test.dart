@@ -32,7 +32,8 @@ void main() {
           id TEXT PRIMARY KEY,
           name TEXT,
           price REAL,
-          description TEXT
+          description TEXT,
+          email TEXT
         )
       ''');
 
@@ -53,7 +54,8 @@ void main() {
           id: '1',
           name: 'Test Product',
           price: 9.99,
-          description: 'A test product');
+          description: 'A test product',
+          email: 'example@gmjail.com');
 
       // Act: Ejecuta la acción que se va a probar
       await databaseHelper.insertProduct(product);
@@ -67,9 +69,17 @@ void main() {
     test('Debe obtener todos los productos de la base de datos', () async {
       // Arrange
       final product1 = Product(
-          id: '1', name: 'Product 1', price: 10.0, description: 'Desc 1');
+          id: '1',
+          name: 'Product 1',
+          price: 10.0,
+          description: 'Desc 1',
+          email: 'example@gmjail.com');
       final product2 = Product(
-          id: '2', name: 'Product 2', price: 20.0, description: 'Desc 2');
+          id: '2',
+          name: 'Product 2',
+          price: 20.0,
+          description: 'Desc 2',
+          email: 'example@gmjail.com');
       await databaseHelper.insertProduct(product1);
       await databaseHelper.insertProduct(product2);
 
@@ -86,14 +96,16 @@ void main() {
           id: '1',
           name: 'Original Name',
           price: 10.0,
-          description: 'Original Desc');
+          description: 'Original Desc',
+          email: 'example@gmjail.com');
       await databaseHelper.insertProduct(originalProduct);
 
       final updatedProduct = Product(
           id: '1',
           name: 'Updated Name',
           price: 15.0,
-          description: 'Updated Desc');
+          description: 'Updated Desc',
+          email: 'example@gmjail.com');
 
       // Act
       await databaseHelper.updateProduct(updatedProduct);
@@ -111,7 +123,8 @@ void main() {
           id: '1',
           name: 'To be deleted',
           price: 9.99,
-          description: 'Delete me');
+          description: 'Delete me',
+          email: 'example@gmjail.com');
       await databaseHelper.insertProduct(product);
 
       // Verifica que el producto fue insertado

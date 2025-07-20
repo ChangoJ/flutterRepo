@@ -31,6 +31,8 @@ class Databasehelper {
   Future<Database> getDatabase() async {
     final String path = join(await getDatabasesPath(), 'products.db');
 
+    //await deleteDatabase(path);
+
     return await openDatabase(
       path,
       version: 1,
@@ -40,7 +42,8 @@ class Databasehelper {
           id TEXT PRIMARY KEY,
           name TEXT,
           price REAL,
-          description TEXT
+          description TEXT,
+          email TEXT
         )
       ''');
       },
@@ -64,6 +67,7 @@ class Databasehelper {
         name: maps[index]['name'],
         price: maps[index]['price'],
         description: maps[index]['description'],
+        email: maps[index]['email'],
       );
     });
   }
