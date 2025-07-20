@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'routes.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -10,11 +12,23 @@ class HomePage extends StatelessWidget {
         title: const Text('Home Page'),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/listarClientes');
-          },
-          child: const Text('ListarClientes'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.listaClientes);
+              },
+              child: const Text('Listar Clientes'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.listaProductos);
+              },
+              child: const Text('Listar Productos'),
+            ),
+          ],
         ),
       ),
     );
