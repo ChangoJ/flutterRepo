@@ -1,3 +1,5 @@
+import 'package:biblioteca/views/add_book_page.dart';
+import 'package:biblioteca/views/home_pages.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,29 +12,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Biblioteca Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        primarySwatch: Colors.red,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(body: Center(child: Text('Hello World'))),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => HomePage(),
+        '/add': (context) => const AddBookPage(),
+      },
     );
   }
 }

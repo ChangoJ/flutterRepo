@@ -1,6 +1,6 @@
-import 'package:biblioteca/models/book.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:tareas/models/tarea.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
@@ -18,53 +18,53 @@ class DatabaseHelper {
   }
 
   Future<Database> _initDatabase() async {
-    String path = join(await getDatabasesPath(), 'library.db');
+    String path = join(await getDatabasesPath(), 'tasks.db');
     return await openDatabase(
       path,
       version: 1,
       onCreate: (db, version) {
         return db.execute(
-          'CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT, author TEXT, status TEXT, note TEXT)',
+          'CREATE TABLE tasks(id INTEGER PRIMARY KEY, title TEXT, description TEXT, dueDate TEXT, status TEXT)',
         );
       },
     );
   }
 
-  Future<void> insertBook(Book book) async {
+  Future<void> insertTask(Task task) async {
     final db = await database;
     await db.insert(
-      'books',
-      book.toMap(),
+      'tasks',
+      task.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-  Future<List<Book>> getBooks() async {
+  Future<List<Task>> getTasks() async {
     final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('books');
+    final List<Map<String, dynamic>> maps = await db.query('tasks');
     return List.generate(maps.length, (i) {
-      return Book(
+      return Task(
         id: maps[i]['id'],
         title: maps[i]['title'],
-        author: maps[i]['author'],
+        description: maps[i]['description'],
+        dueDate: maps[i]['dueDate'],
         status: maps[i]['status'],
-        note: maps[i]['note'],
       );
     });
   }
 
-  Future<void> updateBook(Book book) async {
+  Future<void> updateTask(Task task) async {
     final db = await database;
     await db.update(
-      'books',
-      book.toMap(),
+      'tasks',
+      task.toMap(),
       where: 'id = ?',
-      whereArgs: [book.id],
+      whereArgs: [task.id],
     );
   }
 
-  Future<void> deleteBook(int id) async {
+  Future<void> deleteTask(int id) async {
     final db = await database;
-    await db.delete('books', where: 'id = ?', whereArgs: [id]);
+    await db.delete('tasks', where: 'id = ?', whereArgs: [id]);
   }
 }
